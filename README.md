@@ -1,4 +1,4 @@
-# CodeWithAndrea Flutter Packages
+# Flutter Packages
 
 A collection of packages, created to increase code reuse across many of my Flutter projects.
 
