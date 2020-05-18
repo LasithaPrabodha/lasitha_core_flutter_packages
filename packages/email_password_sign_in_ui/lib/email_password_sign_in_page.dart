@@ -33,6 +33,7 @@ class EmailPasswordSignInPageContents extends StatefulWidget {
 class _EmailPasswordSignInPageContentsState
     extends State<EmailPasswordSignInPageContents> {
   final FocusScopeNode _node = FocusScopeNode();
+  final TextEditingController _dispayNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -41,6 +42,7 @@ class _EmailPasswordSignInPageContentsState
   @override
   void dispose() {
     _node.dispose();
+    _dispayNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -92,8 +94,31 @@ class _EmailPasswordSignInPageContentsState
 
   void _updateFormType(EmailPasswordSignInFormType formType) {
     model.updateFormType(formType);
+    _dispayNameController.clear();
     _emailController.clear();
     _passwordController.clear();
+  }
+
+  Widget _buildDisplayNameField() {
+    return TextField(
+      key: const Key('displayName'),
+      controller: _dispayNameController,
+      decoration: InputDecoration(
+        labelText: EmailPasswordSignInStrings.emailLabel,
+        hintText: EmailPasswordSignInStrings.emailHint,
+        errorText: model.displayNameErrorText,
+        enabled: !model.isLoading,
+      ),
+      autocorrect: false,
+      textInputAction: TextInputAction.next,
+      textCapitalization: TextCapitalization.none,
+      keyboardAppearance: Brightness.light,
+      onChanged: model.updateDisplayName,
+      onEditingComplete: _emailEditingComplete,
+      inputFormatters: <TextInputFormatter>[
+        model.displayNameInputFormatter,
+      ],
+    );
   }
 
   Widget _buildEmailField() {
@@ -142,6 +167,11 @@ class _EmailPasswordSignInPageContentsState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          if (model.formType ==
+              EmailPasswordSignInFormType.register) ...<Widget>[
+            const SizedBox(height: 8.0),
+            _buildDisplayNameField(),
+          ],
           const SizedBox(height: 8.0),
           _buildEmailField(),
           if (model.formType !=

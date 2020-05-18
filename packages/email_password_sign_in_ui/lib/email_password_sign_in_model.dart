@@ -3,6 +3,12 @@ part of email_password_sign_in_ui;
 enum EmailPasswordSignInFormType { signIn, register, forgotPassword }
 
 class EmailAndPasswordValidators {
+  final TextInputFormatter displayNameInputFormatter = ValidatorInputFormatter(
+      editingValidator: DisplayNameEditingRegexValidator());
+
+  final StringValidator displayNameSubmitValidator =
+      DisplayNameSubmitRegexValidator();
+
   final TextInputFormatter emailInputFormatter =
       ValidatorInputFormatter(editingValidator: EmailEditingRegexValidator());
   final StringValidator emailSubmitValidator = EmailSubmitRegexValidator();
@@ -15,6 +21,7 @@ class EmailAndPasswordValidators {
 class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   EmailPasswordSignInModel({
     @required this.auth,
+    this.displayName = '',
     this.email = '',
     this.password = '',
     this.formType = EmailPasswordSignInFormType.signIn,
@@ -23,6 +30,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   });
   final FirebaseAuthService auth;
 
+  String displayName;
   String email;
   String password;
   EmailPasswordSignInFormType formType;
@@ -55,12 +63,16 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     }
   }
 
+  void updateDisplayName(String displayName) =>
+      updateWith(displayName: displayName);
+
   void updateEmail(String email) => updateWith(email: email);
 
   void updatePassword(String password) => updateWith(password: password);
 
   void updateFormType(EmailPasswordSignInFormType formType) {
     updateWith(
+      displayName: '',
       email: '',
       password: '',
       formType: formType,
@@ -70,12 +82,14 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   }
 
   void updateWith({
+    String displayName,
     String email,
     String password,
     EmailPasswordSignInFormType formType,
     bool isLoading,
     bool submitted,
   }) {
+    this.displayName = displayName ?? this.displayName;
     this.email = email ?? this.email;
     this.password = password ?? this.password;
     this.formType = formType ?? this.formType;
@@ -84,6 +98,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     notifyListeners();
   }
 
+  // Getters
   String get passwordLabelText {
     if (formType == EmailPasswordSignInFormType.register) {
       return EmailPasswordSignInStrings.password8CharactersLabel;
@@ -91,7 +106,6 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     return EmailPasswordSignInStrings.passwordLabel;
   }
 
-  // Getters
   String get primaryButtonText {
     return <EmailPasswordSignInFormType, String>{
       EmailPasswordSignInFormType.register:
@@ -142,6 +156,10 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     }[formType];
   }
 
+  bool get canSubmitDisplayName {
+    return displayNameSubmitValidator.isValid(displayName);
+  }
+
   bool get canSubmitEmail {
     return emailSubmitValidator.isValid(email);
   }
@@ -159,6 +177,14 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
             ? canSubmitEmail
             : canSubmitEmail && canSubmitPassword;
     return canSubmitFields && !isLoading;
+  }
+
+  String get displayNameErrorText {
+    final bool showErrorText = submitted && !canSubmitDisplayName;
+    final String errorText = displayName.isEmpty
+        ? EmailPasswordSignInStrings.invalidDisplayNameEmpty
+        : EmailPasswordSignInStrings.invalidDisplayNameErrorText;
+    return showErrorText ? errorText : null;
   }
 
   String get emailErrorText {
@@ -179,6 +205,6 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
 
   @override
   String toString() {
-    return 'email: $email, password: $password, formType: $formType, isLoading: $isLoading, submitted: $submitted';
+    return 'displayName: $displayName, email: $email, password: $password, formType: $formType, isLoading: $isLoading, submitted: $submitted';
   }
 }
