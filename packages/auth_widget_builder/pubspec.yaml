@@ -12,7 +12,9 @@ dependencies:
     sdk: flutter
   firebase_auth: ^0.16.0
   firebase_auth_service:
-    path: ../firebase_auth_service
+    git:
+      url: https://github.com/LasithaPrabodha/lasitha_core_flutter_packages
+      path: packages/firebase_auth_service
   provider: ^4.1.2
   mockito: ^4.1.1
 

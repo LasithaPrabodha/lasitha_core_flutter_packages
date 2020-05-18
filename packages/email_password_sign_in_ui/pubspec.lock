@@ -4,9 +4,11 @@ packages:
   alert_dialogs:
     dependency: "direct main"
     description:
-      path: "../alert_dialogs"
-      relative: true
-    source: path
+      path: "packages/alert_dialogs"
+      ref: HEAD
+      resolved-ref: "468f2e62da25eb27de253a63a701ea248856c118"
+      url: "https://github.com/LasithaPrabodha/lasitha_core_flutter_packages"
+    source: git
     version: "0.0.1"
   archive:
     dependency: transitive
@@ -67,9 +69,11 @@ packages:
   custom_buttons:
     dependency: "direct main"
     description:
-      path: "../custom_buttons"
-      relative: true
-    source: path
+      path: "packages/custom_buttons"
+      ref: HEAD
+      resolved-ref: "468f2e62da25eb27de253a63a701ea248856c118"
+      url: "https://github.com/LasithaPrabodha/lasitha_core_flutter_packages"
+    source: git
     version: "0.0.1"
   firebase:
     dependency: transitive
@@ -95,9 +99,11 @@ packages:
   firebase_auth_service:
     dependency: "direct main"
     description:
-      path: "../firebase_auth_service"
-      relative: true
-    source: path
+      path: "packages/firebase_auth_service"
+      ref: HEAD
+      resolved-ref: "468f2e62da25eb27de253a63a701ea248856c118"
+      url: "https://github.com/LasithaPrabodha/lasitha_core_flutter_packages"
+    source: git
     version: "0.0.1"
   firebase_auth_web:
     dependency: transitive
@@ -276,9 +282,11 @@ packages:
   string_validators:
     dependency: "direct main"
     description:
-      path: "../string_validators"
-      relative: true
-    source: path
+      path: "packages/string_validators"
+      ref: HEAD
+      resolved-ref: "468f2e62da25eb27de253a63a701ea248856c118"
+      url: "https://github.com/LasithaPrabodha/lasitha_core_flutter_packages"
+    source: git
     version: "0.0.1"
   term_glyph:
     dependency: transitive

@@ -81,9 +81,11 @@ packages:
   firebase_auth_service:
     dependency: "direct main"
     description:
-      path: "../firebase_auth_service"
-      relative: true
-    source: path
+      path: "packages/firebase_auth_service"
+      ref: HEAD
+      resolved-ref: "468f2e62da25eb27de253a63a701ea248856c118"
+      url: "https://github.com/LasithaPrabodha/lasitha_core_flutter_packages"
+    source: git
     version: "0.0.1"
   firebase_auth_web:
     dependency: transitive

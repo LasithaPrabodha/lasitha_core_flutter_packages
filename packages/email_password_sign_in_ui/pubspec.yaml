@@ -12,13 +12,21 @@ dependencies:
     sdk: flutter
   firebase_auth:
   firebase_auth_service:
-    path: ../firebase_auth_service
+    git:
+      url: https://github.com/LasithaPrabodha/lasitha_core_flutter_packages
+      path: packages/firebase_auth_service
   alert_dialogs:
-    path: ../alert_dialogs
+    git:
+      url: https://github.com/LasithaPrabodha/lasitha_core_flutter_packages
+      path: packages/alert_dialogs
   custom_buttons:
-    path: ../custom_buttons
+    git:
+      url: https://github.com/LasithaPrabodha/lasitha_core_flutter_packages
+      path: packages/custom_buttons
   string_validators:
-    path: ../string_validators
+    git:
+      url: https://github.com/LasithaPrabodha/lasitha_core_flutter_packages
+      path: packages/string_validators
   provider: ^4.1.2
   mockito: ^4.1.1
 
