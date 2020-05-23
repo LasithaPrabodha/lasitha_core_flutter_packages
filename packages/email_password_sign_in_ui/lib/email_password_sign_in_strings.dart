@@ -18,15 +18,10 @@ class EmailPasswordSignInStrings {
   static const String resetLinkSentTitle = 'Reset link sent';
   static const String resetLinkSentMessage =
       'Check your email to reset your password';
-  static const String usernamelLabel = 'Display name';
-  static const String usernameHint = 'john_doe';
   static const String emailLabel = 'Email';
   static const String emailHint = 'john@doe.com';
   static const String password8CharactersLabel = 'Password (8+ characters)';
   static const String passwordLabel = 'Password';
-  static const String invalidUsernameTooShort = 'Display name is too short';
-  static const String invalidUsernameEmpty = 'Display name can\'t be empty';
-  static const String invalidUsernameErrorText = 'Display name is invalid';
   static const String invalidEmailErrorText = 'Email is invalid';
   static const String invalidEmailEmpty = 'Email can\'t be empty';
   static const String invalidPasswordTooShort = 'Password is too short';

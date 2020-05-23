@@ -99,28 +99,6 @@ class _EmailPasswordSignInPageContentsState
     _passwordController.clear();
   }
 
-  Widget _buildUsernameField() {
-    return TextField(
-      key: const Key('username'),
-      controller: _dispayNameController,
-      decoration: InputDecoration(
-        labelText: EmailPasswordSignInStrings.emailLabel,
-        hintText: EmailPasswordSignInStrings.emailHint,
-        errorText: model.usernameErrorText,
-        enabled: !model.isLoading,
-      ),
-      autocorrect: false,
-      textInputAction: TextInputAction.next,
-      textCapitalization: TextCapitalization.none,
-      keyboardAppearance: Brightness.light,
-      onChanged: model.updateUsername,
-      onEditingComplete: _emailEditingComplete,
-      inputFormatters: <TextInputFormatter>[
-        model.usernameInputFormatter,
-      ],
-    );
-  }
-
   Widget _buildEmailField() {
     return TextField(
       key: const Key('email'),
@@ -167,11 +145,6 @@ class _EmailPasswordSignInPageContentsState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          if (model.formType ==
-              EmailPasswordSignInFormType.register) ...<Widget>[
-            const SizedBox(height: 8.0),
-            _buildUsernameField(),
-          ],
           const SizedBox(height: 8.0),
           _buildEmailField(),
           if (model.formType !=

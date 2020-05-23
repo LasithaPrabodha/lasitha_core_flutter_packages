@@ -3,12 +3,6 @@ part of email_password_sign_in_ui;
 enum EmailPasswordSignInFormType { signIn, register, forgotPassword }
 
 class EmailAndPasswordValidators {
-  final TextInputFormatter usernameInputFormatter = ValidatorInputFormatter(
-      editingValidator: UsernameEditingRegexValidator());
-
-  final StringValidator usernameSubmitValidator =
-      UsernameSubmitRegexValidator();
-
   final TextInputFormatter emailInputFormatter =
       ValidatorInputFormatter(editingValidator: EmailEditingRegexValidator());
   final StringValidator emailSubmitValidator = EmailSubmitRegexValidator();
@@ -21,7 +15,6 @@ class EmailAndPasswordValidators {
 class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   EmailPasswordSignInModel({
     @required this.auth,
-    this.username = '',
     this.email = '',
     this.password = '',
     this.formType = EmailPasswordSignInFormType.signIn,
@@ -30,7 +23,6 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   });
   final FirebaseAuthService auth;
 
-  String username;
   String email;
   String password;
   EmailPasswordSignInFormType formType;
@@ -63,15 +55,12 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     }
   }
 
-  void updateUsername(String username) => updateWith(username: username);
-
   void updateEmail(String email) => updateWith(email: email);
 
   void updatePassword(String password) => updateWith(password: password);
 
   void updateFormType(EmailPasswordSignInFormType formType) {
     updateWith(
-      username: '',
       email: '',
       password: '',
       formType: formType,
@@ -81,14 +70,12 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   }
 
   void updateWith({
-    String username,
     String email,
     String password,
     EmailPasswordSignInFormType formType,
     bool isLoading,
     bool submitted,
   }) {
-    this.username = username ?? this.username;
     this.email = email ?? this.email;
     this.password = password ?? this.password;
     this.formType = formType ?? this.formType;
@@ -155,10 +142,6 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     }[formType];
   }
 
-  bool get canSubmitUsername {
-    return usernameSubmitValidator.isValid(username);
-  }
-
   bool get canSubmitEmail {
     return emailSubmitValidator.isValid(email);
   }
@@ -176,14 +159,6 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
             ? canSubmitEmail
             : canSubmitEmail && canSubmitPassword;
     return canSubmitFields && !isLoading;
-  }
-
-  String get usernameErrorText {
-    final bool showErrorText = submitted && !canSubmitUsername;
-    final String errorText = username.isEmpty
-        ? EmailPasswordSignInStrings.invalidUsernameEmpty
-        : EmailPasswordSignInStrings.invalidUsernameErrorText;
-    return showErrorText ? errorText : null;
   }
 
   String get emailErrorText {
@@ -204,6 +179,6 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
 
   @override
   String toString() {
-    return 'username: $username, email: $email, password: $password, formType: $formType, isLoading: $isLoading, submitted: $submitted';
+    return 'email: $email, password: $password, formType: $formType, isLoading: $isLoading, submitted: $submitted';
   }
 }
