@@ -71,7 +71,7 @@ packages:
     description:
       path: "packages/custom_buttons"
       ref: HEAD
-      resolved-ref: b288bfa6616e0204b4fa8b2e58578870db732f59
+      resolved-ref: "359df3495104e8bdba7515e8c1b85c99618795a7"
       url: "https://github.com/LasithaPrabodha/lasitha_core_flutter_packages"
     source: git
     version: "0.0.1"
