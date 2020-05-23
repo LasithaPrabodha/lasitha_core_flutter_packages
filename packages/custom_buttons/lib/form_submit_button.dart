@@ -6,6 +6,7 @@ class FormSubmitButton extends CustomRaisedButton {
     String text,
     bool loading = false,
     VoidCallback onPressed,
+    Color color,
   }) : super(
           key: key,
           child: Text(
@@ -13,7 +14,7 @@ class FormSubmitButton extends CustomRaisedButton {
             style: const TextStyle(color: Colors.white, fontSize: 20.0),
           ),
           height: 44.0,
-          color: Colors.indigo,
+          color: color ?? Colors.indigo,
           textColor: Colors.black87,
           loading: loading,
           onPressed: onPressed,

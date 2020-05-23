@@ -1,8 +1,12 @@
 part of email_password_sign_in_ui;
 
 class EmailPasswordSignInPage extends StatelessWidget {
-  const EmailPasswordSignInPage({Key key, this.onSignedIn}) : super(key: key);
+  const EmailPasswordSignInPage(
+      {Key key, this.onSignedIn, this.logo, this.btnColor})
+      : super(key: key);
   final VoidCallback onSignedIn;
+  final Image logo;
+  final Color btnColor;
 
   @override
   Widget build(BuildContext context) {
@@ -12,18 +16,28 @@ class EmailPasswordSignInPage extends StatelessWidget {
       create: (_) => EmailPasswordSignInModel(auth: auth),
       child: Consumer<EmailPasswordSignInModel>(
         builder: (_, model, __) => EmailPasswordSignInPageContents(
-            model: model, onSignedIn: onSignedIn),
+          model: model,
+          onSignedIn: onSignedIn,
+          logo: logo,
+          btnColor: btnColor,
+        ),
       ),
     );
   }
 }
 
 class EmailPasswordSignInPageContents extends StatefulWidget {
-  const EmailPasswordSignInPageContents(
-      {Key key, @required this.model, this.onSignedIn})
-      : super(key: key);
+  const EmailPasswordSignInPageContents({
+    Key key,
+    @required this.model,
+    this.onSignedIn,
+    this.logo,
+    this.btnColor,
+  }) : super(key: key);
   final EmailPasswordSignInModel model;
   final VoidCallback onSignedIn;
+  final Image logo;
+  final Color btnColor;
 
   @override
   _EmailPasswordSignInPageContentsState createState() =>
@@ -145,6 +159,7 @@ class _EmailPasswordSignInPageContentsState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          if (widget.logo != null) widget.logo,
           const SizedBox(height: 8.0),
           _buildEmailField(),
           if (model.formType !=
@@ -158,6 +173,7 @@ class _EmailPasswordSignInPageContentsState
             text: model.primaryButtonText,
             loading: model.isLoading,
             onPressed: model.isLoading ? null : _submit,
+            color: widget.btnColor ?? widget.btnColor,
           ),
           const SizedBox(height: 8.0),
           FlatButton(
