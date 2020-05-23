@@ -3,11 +3,11 @@ part of email_password_sign_in_ui;
 enum EmailPasswordSignInFormType { signIn, register, forgotPassword }
 
 class EmailAndPasswordValidators {
-  final TextInputFormatter displayNameInputFormatter = ValidatorInputFormatter(
-      editingValidator: DisplayNameEditingRegexValidator());
+  final TextInputFormatter usernameInputFormatter = ValidatorInputFormatter(
+      editingValidator: UsernameEditingRegexValidator());
 
-  final StringValidator displayNameSubmitValidator =
-      DisplayNameSubmitRegexValidator();
+  final StringValidator usernameSubmitValidator =
+      UsernameSubmitRegexValidator();
 
   final TextInputFormatter emailInputFormatter =
       ValidatorInputFormatter(editingValidator: EmailEditingRegexValidator());
@@ -21,7 +21,7 @@ class EmailAndPasswordValidators {
 class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   EmailPasswordSignInModel({
     @required this.auth,
-    this.displayName = '',
+    this.username = '',
     this.email = '',
     this.password = '',
     this.formType = EmailPasswordSignInFormType.signIn,
@@ -30,7 +30,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   });
   final FirebaseAuthService auth;
 
-  String displayName;
+  String username;
   String email;
   String password;
   EmailPasswordSignInFormType formType;
@@ -63,8 +63,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     }
   }
 
-  void updateDisplayName(String displayName) =>
-      updateWith(displayName: displayName);
+  void updateUsername(String username) => updateWith(username: username);
 
   void updateEmail(String email) => updateWith(email: email);
 
@@ -72,7 +71,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
 
   void updateFormType(EmailPasswordSignInFormType formType) {
     updateWith(
-      displayName: '',
+      username: '',
       email: '',
       password: '',
       formType: formType,
@@ -82,14 +81,14 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   }
 
   void updateWith({
-    String displayName,
+    String username,
     String email,
     String password,
     EmailPasswordSignInFormType formType,
     bool isLoading,
     bool submitted,
   }) {
-    this.displayName = displayName ?? this.displayName;
+    this.username = username ?? this.username;
     this.email = email ?? this.email;
     this.password = password ?? this.password;
     this.formType = formType ?? this.formType;
@@ -156,8 +155,8 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     }[formType];
   }
 
-  bool get canSubmitDisplayName {
-    return displayNameSubmitValidator.isValid(displayName);
+  bool get canSubmitUsername {
+    return usernameSubmitValidator.isValid(username);
   }
 
   bool get canSubmitEmail {
@@ -179,11 +178,11 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
     return canSubmitFields && !isLoading;
   }
 
-  String get displayNameErrorText {
-    final bool showErrorText = submitted && !canSubmitDisplayName;
-    final String errorText = displayName.isEmpty
-        ? EmailPasswordSignInStrings.invalidDisplayNameEmpty
-        : EmailPasswordSignInStrings.invalidDisplayNameErrorText;
+  String get usernameErrorText {
+    final bool showErrorText = submitted && !canSubmitUsername;
+    final String errorText = username.isEmpty
+        ? EmailPasswordSignInStrings.invalidUsernameEmpty
+        : EmailPasswordSignInStrings.invalidUsernameErrorText;
     return showErrorText ? errorText : null;
   }
 
@@ -205,6 +204,6 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
 
   @override
   String toString() {
-    return 'displayName: $displayName, email: $email, password: $password, formType: $formType, isLoading: $isLoading, submitted: $submitted';
+    return 'username: $username, email: $email, password: $password, formType: $formType, isLoading: $isLoading, submitted: $submitted';
   }
 }
