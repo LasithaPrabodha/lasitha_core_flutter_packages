@@ -17,12 +17,15 @@ class FirestoreService {
     await reference.setData(data, merge: merge);
   }
 
-  Future<void> getData({
+  Future<T> getData<T>({
     @required String path,
+    @required T Function(Map<String, dynamic> data, String documentID) builder,
   }) async {
     final reference = Firestore.instance.document(path);
     print('get: $path');
-    return reference.get();
+    return reference
+        .get()
+        .then((document) => builder(document.data, document.documentID));
   }
 
   Future<void> deleteData({@required String path}) async {
