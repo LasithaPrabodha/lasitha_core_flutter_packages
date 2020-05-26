@@ -47,7 +47,6 @@ class EmailPasswordSignInPageContents extends StatefulWidget {
 class _EmailPasswordSignInPageContentsState
     extends State<EmailPasswordSignInPageContents> {
   final FocusScopeNode _node = FocusScopeNode();
-  final TextEditingController _dispayNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -56,7 +55,6 @@ class _EmailPasswordSignInPageContentsState
   @override
   void dispose() {
     _node.dispose();
-    _dispayNameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -108,7 +106,6 @@ class _EmailPasswordSignInPageContentsState
 
   void _updateFormType(EmailPasswordSignInFormType formType) {
     model.updateFormType(formType);
-    _dispayNameController.clear();
     _emailController.clear();
     _passwordController.clear();
   }
