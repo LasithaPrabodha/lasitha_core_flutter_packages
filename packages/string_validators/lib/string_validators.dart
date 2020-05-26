@@ -56,6 +56,15 @@ class EmailSubmitRegexValidator extends RegexValidator {
             regexSource: r'^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$');
 }
 
+class UsernameEditingRegexValidator extends RegexValidator {
+  UsernameEditingRegexValidator() : super(regexSource: '^(|\\S)+\$');
+}
+
+class UsernameSubmitRegexValidator extends RegexValidator {
+  UsernameSubmitRegexValidator()
+      : super(regexSource: r'^[a-zA-Z0-9]+((_|-|\.)?[a-zA-Z0-9])*$');
+}
+
 class NonEmptyStringValidator extends StringValidator {
   @override
   bool isValid(String value) {
